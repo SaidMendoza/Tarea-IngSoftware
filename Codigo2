@@ -1,0 +1,41 @@
+from abc import ABC, abstractmethod
+
+# Estrategia base
+class PaymentStrategy(ABC):
+    @abstractmethod
+    def pay(self, amount):
+        pass
+
+# Estrategias concretas
+class CreditCardPayment(PaymentStrategy):
+    def pay(self, amount):
+        print(f"Pagando ${amount} con tarjeta de crédito.")
+
+class PayPalPayment(PaymentStrategy):
+    def pay(self, amount):
+        print(f"Pagando ${amount} con PayPal.")
+
+class CryptoPayment(PaymentStrategy):
+    def pay(self, amount):
+        print(f"Pagando ${amount} con criptomonedas.")
+
+# Contexto
+class ShoppingCart:
+    def __init__(self, strategy: PaymentStrategy):
+        self.strategy = strategy
+
+    def set_strategy(self, strategy: PaymentStrategy):
+        self.strategy = strategy
+
+    def checkout(self, amount):
+        self.strategy.pay(amount)
+
+# Ejemplo de uso
+cart = ShoppingCart(CreditCardPayment())
+cart.checkout(100)
+
+cart.set_strategy(PayPalPayment())
+cart.checkout(250)
+
+cart.set_strategy(CryptoPayment())
+cart.checkout(500)
