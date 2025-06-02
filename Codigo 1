@@ -1,0 +1,22 @@
+class Logger:
+    _instance = None
+
+    def __new__(cls):
+        if cls._instance is None:
+            print("Creando nueva instancia del Logger")
+            cls._instance = super(Logger, cls).__new__(cls)
+        return cls._instance
+
+    def log(self, message):
+        print(f"[LOG]: {message}")
+
+
+# Ejemplo de uso
+logger1 = Logger()
+logger2 = Logger()
+
+logger1.log("Este es el primer mensaje.")
+logger2.log("Este es el segundo mensaje.")
+
+# Se comprueba que ambos objetos son el mismo
+print(f"¿Logger1 y Logger2 son el mismo objeto?: {logger1 is logger2}")
